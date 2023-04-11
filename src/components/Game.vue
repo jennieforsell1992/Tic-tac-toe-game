@@ -8,13 +8,10 @@ import { User } from "../models/User";
 const user = ref<User[]>([])
 const showGame = ref(false)
 
-
-
-
 const addPlayerToGame = (userX: User, userO: User) => {
     user.value.push(userX, userO);
-    console.log(user)
     showGame.value = true;
+    console.log(user)
 }
 
 // const ticTacToeBox = (i: number, boardGame: [{}]) => {

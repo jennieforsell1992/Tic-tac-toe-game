@@ -7,25 +7,31 @@ interface ITicTacToeProps {
 }
 const props = defineProps<ITicTacToeProps>()
 
-const currentPlayer = props.users[0]
+let currentPlayer = props.users[0]
 
 
 const boardGame = ref([{ clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" }, { clicked: false, symbol: "" },])
 
-const emit = defineEmits(["clickedBox"])
 
 
 
-const clickedBox = (index: number) => {
-    if (currentPlayer.role === "X") {
-        boardGame.value[index].symbol = currentPlayer.role
+
+const clickedBox = (i: number) => {
+    console.log(currentPlayer)
+
+    boardGame.value[i].symbol = currentPlayer.role
+    boardGame.value[i].clicked = true;
+    if (currentPlayer === props.users[0]) {
+        currentPlayer = props.users[1];
+
     }
-    else (currentPlayer.role === "O"); {
-        boardGame.value[index].symbol = currentPlayer.role
+    else {
+        currentPlayer = props.users[0]
     }
 
-    console.log("klickade på rutan", index)
-    console.log(boardGame.value[index])
+
+    console.log("klickade på rutan", i)
+    console.log(boardGame.value[i])
 
 }
 
