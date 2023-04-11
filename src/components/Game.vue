@@ -7,7 +7,9 @@ import { User } from "../models/User";
 
 const user = ref<User[]>([])
 const showGame = ref(false)
-const currentPlayer = ref(Boolean)
+
+
+
 
 const addPlayerToGame = (userX: User, userO: User) => {
     user.value.push(userX, userO);
@@ -15,9 +17,18 @@ const addPlayerToGame = (userX: User, userO: User) => {
     showGame.value = true;
 }
 
-const ticTacToeBox = () => {
+// const ticTacToeBox = (i: number, boardGame: [{}]) => {
 
-}
+    
+//     // if(user.value[i].role === "X"){
+
+//     // }
+//     // else(user.value[i].role === "O"){
+
+//     // }
+//     console.log("du klickade på en ruta", i)
+//     console.log(user.value[0])
+// }
 
 
 
@@ -25,7 +36,7 @@ const ticTacToeBox = () => {
 
 <template>
     <InsertUser :startPage="showGame" @add-username-to-list="addPlayerToGame"></InsertUser>
-    <TickTacToe @clicked-box="ticTacToeBox" v-if="showGame"></TickTacToe>
+    <TickTacToe :users="user" v-if="showGame"></TickTacToe>
 </template>
 
 <style scoped></style>
