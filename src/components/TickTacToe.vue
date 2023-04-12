@@ -2,10 +2,14 @@
 import { ref } from "vue";
 import { User } from "../models/User";
 
+let showUsername = ref(false)
+
 interface ITicTacToeProps {
     users: User[];
 }
+
 const props = defineProps<ITicTacToeProps>()
+
 
 let currentPlayer = props.users[0]
 
@@ -18,6 +22,7 @@ const boardGame = ref([{ clicked: false, symbol: "" }, { clicked: false, symbol:
 
 const clickedBox = (i: number) => {
     console.log(currentPlayer)
+
 
     boardGame.value[i].symbol = currentPlayer.role
     boardGame.value[i].clicked = true;
@@ -40,8 +45,9 @@ const clickedBox = (i: number) => {
 </script>
 
 <template>
-    <p></p>
-    <div class="square-container">
+    <p v-if="currentPlayer.role === 'X'"> Player {{ users[0].username }} 's turn:</p>
+    <p v-else> Player {{ users[1].username }} 's turn:</p>
+    <div div class=" square-container">
         <div class="square" v-for="(square, index) in boardGame" :key="index" @click.once="() => { clickedBox(index) }">{{
             boardGame[index].symbol }}
         </div>
