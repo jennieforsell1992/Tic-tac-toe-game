@@ -57,6 +57,9 @@ const winnerOfTicTacToe = () => {
 
 const clickedBox = (i: number) => {
     console.log(currentPlayer)
+    if (gameState.value != "start") {
+        return;
+    }
 
 
     boardGame.value[i] = currentPlayer.role
@@ -71,32 +74,6 @@ const clickedBox = (i: number) => {
         currentPlayer = props.users[0]
     }
 
-    // if (haswinner === currentPlayer.role) {
-
-    //     currentPlayer.role = "";
-    //     boardGame.value[i] = currentPlayer.role
-    //     console.log("Nu blir boxen tom")
-
-
-    // }
-
-
-
-    // if (winner.value != currentPlayer.role) {
-
-    //     console.log("Detta är inte den som vann och nu ska det vara tomt")
-    // }
-
-
-
-
-
-
-
-
-
-    // console.log("klickade på rutan", i)
-    // console.log(boardGame.value[i])
 
 }
 
@@ -104,17 +81,10 @@ const clickedBox = (i: number) => {
 
 
 
-// const ticTacToeStops = (index: number) => {
-//     if (boardGame.value[index] != currentPlayer.role) {
-//         console.log("nu kan jag inte använda spelet mer!")
 
-//         //Stänga av klicket?? Hur??
-//     }
-
-
-// }
 
 const playAgain = () => {
+
 
 
 }
