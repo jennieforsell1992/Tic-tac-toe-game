@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { User } from "../models/User";
+import { computed } from "@vue/reactivity";
 
 
 interface ITicTacToeProps {
@@ -9,6 +10,7 @@ interface ITicTacToeProps {
 
 const props = defineProps<ITicTacToeProps>()
 const gameState = ref("start")
+const boardKey = ref(0)
 
 
 let currentPlayer = props.users[0]
@@ -53,6 +55,11 @@ const winnerOfTicTacToe = () => {
     return null;
 }
 
+const winner = computed(() => winnerOfTicTacToe())
+const newWinner = winner.value;
+console.log(newWinner)
+
+
 
 
 const clickedBox = (i: number) => {
@@ -68,10 +75,12 @@ const clickedBox = (i: number) => {
 
     if (currentPlayer === props.users[0]) {
         currentPlayer = props.users[1];
+        console.log(currentPlayer);
 
     }
     else {
         currentPlayer = props.users[0]
+        console.log(currentPlayer)
     }
 
 
@@ -79,13 +88,14 @@ const clickedBox = (i: number) => {
 
 
 
-
-
-
-
 const playAgain = () => {
 
+    for (let i = 0; i < boardGame.value.length; i++) {
+        boardGame.value[i] = "";
 
+    }
+    gameState.value = "start";
+    boardKey.value++;
 
 }
 
@@ -98,12 +108,14 @@ const playAgain = () => {
     <p v-if="currentPlayer.role === 'X'"> Player {{ users[0].username }} 's turn:</p>
     <p v-else> Player {{ users[1].username }} 's turn:</p>
     <div div class=" square-container">
-        <div class="square" v-for="(square, index) in boardGame" :key="index" @click.once="() => { clickedBox(index) }">{{
-            boardGame[index] }}
+        <div class="square" v-for="(square, index) in boardGame" :key="boardKey" @click.once="() => { clickedBox(index) }">
+            {{
+                boardGame[index] }}
         </div>
     </div>
-    <button>Reset game</button>
-    <p v-if="gameState === 'win'">winner is: {{ users[0].username || users[0].username }}🎉</p>
+    <button @click="playAgain">Reset game</button>
+    <p v-if="gameState === 'win' && currentPlayer.role === 'X'">winner is: {{ users[1].username }}🎉</p>
+    <p v-if="gameState === 'win' && currentPlayer.role === 'O'">winner is: {{ users[0].username }}🎉</p>
 </template>
 
 <style scoped>
