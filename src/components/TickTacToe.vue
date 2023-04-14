@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { User } from "../models/User";
 
 
@@ -8,12 +8,13 @@ interface ITicTacToeProps {
 }
 
 const props = defineProps<ITicTacToeProps>()
+const gameState = ref("start")
 
 
 let currentPlayer = props.users[0]
 
 
-const boardGame = ref(["", "", "", "", "", "", "", "", ""])
+let boardGame = ref(["", "", "", "", "", "", "", "", ""])
 
 const winnerOfTicTacToe = () => {
     const winCondition = [
@@ -36,7 +37,12 @@ const winnerOfTicTacToe = () => {
         const [a, b, c] = winners;
 
         if (boardGame.value[a] && boardGame.value[a] === boardGame.value[b] && boardGame.value[a] === boardGame.value[c]) {
-            return boardGame.value[a];
+            if (boardGame.value[a] === currentPlayer.role) {
+                gameState.value = "win";
+                return boardGame.value[a];
+
+            }
+
 
 
 
@@ -47,20 +53,18 @@ const winnerOfTicTacToe = () => {
     return null;
 }
 
-const winner = computed(() => winnerOfTicTacToe())
-
-
-
-
-
 
 
 const clickedBox = (i: number) => {
     console.log(currentPlayer)
+    if (gameState.value != "start") {
+        return;
+    }
 
 
     boardGame.value[i] = currentPlayer.role
     let haswinner = winnerOfTicTacToe();
+    console.log(haswinner)
 
     if (currentPlayer === props.users[0]) {
         currentPlayer = props.users[1];
@@ -71,22 +75,16 @@ const clickedBox = (i: number) => {
     }
 
 
-    console.log("klickade på rutan", i)
-    console.log(boardGame.value[i])
-
-    if (haswinner === currentPlayer.role) {
-        ticTacToeStops();
-    }
-
 }
 
-const ticTacToeStops = () => {
-    console.log("nu kan jag inte använda spelet mer!")
 
 
-}
+
+
+
 
 const playAgain = () => {
+
 
 
 }
@@ -105,8 +103,7 @@ const playAgain = () => {
         </div>
     </div>
     <button>Reset game</button>
-    <p v-if="winner === 'X'">winner is: {{ users[0].username }}🎉</p>
-    <p v-else> winner is: {{ users[1].username }} </p>
+    <p v-if="gameState === 'win'">winner is: {{ users[0].username || users[0].username }}🎉</p>
 </template>
 
 <style scoped>
