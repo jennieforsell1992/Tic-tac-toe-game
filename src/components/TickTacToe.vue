@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { User } from "../models/User";
+import { computed } from "@vue/reactivity";
 
 
 interface ITicTacToeProps {
@@ -54,6 +55,11 @@ const winnerOfTicTacToe = () => {
     return null;
 }
 
+const winner = computed(() => winnerOfTicTacToe())
+const newWinner = winner.value;
+console.log(newWinner)
+
+
 
 
 const clickedBox = (i: number) => {
@@ -69,18 +75,16 @@ const clickedBox = (i: number) => {
 
     if (currentPlayer === props.users[0]) {
         currentPlayer = props.users[1];
+        console.log(currentPlayer);
 
     }
     else {
         currentPlayer = props.users[0]
+        console.log(currentPlayer)
     }
 
 
 }
-
-
-
-
 
 
 
@@ -110,7 +114,8 @@ const playAgain = () => {
         </div>
     </div>
     <button @click="playAgain">Reset game</button>
-    <p v-if="gameState === 'win'">winner is: {{ users[0].username || users[0].username }}🎉</p>
+    <p v-if="gameState === 'win' && currentPlayer.role === 'X'">winner is: {{ users[1].username }}🎉</p>
+    <p v-if="gameState === 'win' && currentPlayer.role === 'O'">winner is: {{ users[0].username }}🎉</p>
 </template>
 
 <style scoped>
