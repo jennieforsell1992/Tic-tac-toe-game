@@ -9,6 +9,7 @@ interface ITicTacToeProps {
 
 const props = defineProps<ITicTacToeProps>()
 const gameState = ref("start")
+const boardKey = ref(0)
 
 
 let currentPlayer = props.users[0]
@@ -85,7 +86,12 @@ const clickedBox = (i: number) => {
 
 const playAgain = () => {
 
+    for (let i = 0; i < boardGame.value.length; i++) {
+        boardGame.value[i] = "";
 
+    }
+    gameState.value = "start";
+    boardKey.value++;
 
 }
 
@@ -98,11 +104,12 @@ const playAgain = () => {
     <p v-if="currentPlayer.role === 'X'"> Player {{ users[0].username }} 's turn:</p>
     <p v-else> Player {{ users[1].username }} 's turn:</p>
     <div div class=" square-container">
-        <div class="square" v-for="(square, index) in boardGame" :key="index" @click.once="() => { clickedBox(index) }">{{
-            boardGame[index] }}
+        <div class="square" v-for="(square, index) in boardGame" :key="boardKey" @click.once="() => { clickedBox(index) }">
+            {{
+                boardGame[index] }}
         </div>
     </div>
-    <button>Reset game</button>
+    <button @click="playAgain">Reset game</button>
     <p v-if="gameState === 'win'">winner is: {{ users[0].username || users[0].username }}🎉</p>
 </template>
 
