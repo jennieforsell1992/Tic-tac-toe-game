@@ -18,9 +18,9 @@ const boardGame = ref(["", "", "", "", "", "", "", "", ""])
 const winnerOfTicTacToe = () => {
     const winCondition = [
 
-        [0, 1, 2], // 0
-        [3, 4, 5],  // 1
-        [6, 7, 8],  // 2
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
 
         [0, 3, 6],
         [1, 4, 7],
@@ -36,39 +36,21 @@ const winnerOfTicTacToe = () => {
         const [a, b, c] = winners;
 
         if (boardGame.value[a] && boardGame.value[a] === boardGame.value[b] && boardGame.value[a] === boardGame.value[c]) {
-            return true;
+            return boardGame.value[a];
+
 
 
         }
 
-
-
-        //     console.log(winners)
-
-        //     for (let j = 0; j < winners.length; j++) {
-        //         const positionInList = winners[j];
-        //         console.log(boardGame.value[positionInList])
-
-        //         if (boardGame.value[positionInList] === player) {
-
-
-        //         }
-
-
-        //     }
-
-
-
-        // }
     }
 
-    return false;
+    return null;
 }
 
 const winner = computed(() => winnerOfTicTacToe())
 
 
-// https://github.com/TylerPottsDev/yt-vue-tictactoe/blob/master/src/App.vue
+
 
 
 
@@ -92,7 +74,7 @@ const clickedBox = (i: number) => {
     console.log("klickade på rutan", i)
     console.log(boardGame.value[i])
 
-    if (haswinner === true) {
+    if (haswinner === currentPlayer.role) {
         ticTacToeStops();
     }
 
@@ -110,12 +92,6 @@ const playAgain = () => {
 }
 
 
-// const resetGame = () => {
-
-//     boardGame.value = ["", "", "", "", "", "", "", "", ""]
-
-// }
-
 
 
 </script>
@@ -129,7 +105,8 @@ const playAgain = () => {
         </div>
     </div>
     <button>Reset game</button>
-    <p>winner is: {{ winner }}</p>
+    <p v-if="winner === 'X'">winner is: {{ users[0].username }}🎉</p>
+    <p v-else> winner is: {{ users[1].username }} </p>
 </template>
 
 <style scoped>
