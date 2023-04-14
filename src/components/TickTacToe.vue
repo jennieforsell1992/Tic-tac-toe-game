@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { User } from "../models/User";
 
 
@@ -8,12 +8,13 @@ interface ITicTacToeProps {
 }
 
 const props = defineProps<ITicTacToeProps>()
+const gameState = ref("start")
 
 
 let currentPlayer = props.users[0]
 
 
-const boardGame = ref(["", "", "", "", "", "", "", "", ""])
+let boardGame = ref(["", "", "", "", "", "", "", "", ""])
 
 const winnerOfTicTacToe = () => {
     const winCondition = [
@@ -36,7 +37,12 @@ const winnerOfTicTacToe = () => {
         const [a, b, c] = winners;
 
         if (boardGame.value[a] && boardGame.value[a] === boardGame.value[b] && boardGame.value[a] === boardGame.value[c]) {
-            return boardGame.value[a];
+            if (boardGame.value[a] === currentPlayer.role) {
+                gameState.value = "win";
+                return boardGame.value[a];
+
+            }
+
 
 
 
@@ -47,12 +53,6 @@ const winnerOfTicTacToe = () => {
     return null;
 }
 
-const winner = computed(() => winnerOfTicTacToe())
-
-
-
-
-
 
 
 const clickedBox = (i: number) => {
@@ -61,6 +61,7 @@ const clickedBox = (i: number) => {
 
     boardGame.value[i] = currentPlayer.role
     let haswinner = winnerOfTicTacToe();
+    console.log(haswinner)
 
     if (currentPlayer === props.users[0]) {
         currentPlayer = props.users[1];
@@ -70,21 +71,48 @@ const clickedBox = (i: number) => {
         currentPlayer = props.users[0]
     }
 
+    // if (haswinner === currentPlayer.role) {
 
-    console.log("klickade på rutan", i)
-    console.log(boardGame.value[i])
+    //     currentPlayer.role = "";
+    //     boardGame.value[i] = currentPlayer.role
+    //     console.log("Nu blir boxen tom")
 
-    if (haswinner === currentPlayer.role) {
-        ticTacToeStops();
-    }
+
+    // }
+
+
+
+    // if (winner.value != currentPlayer.role) {
+
+    //     console.log("Detta är inte den som vann och nu ska det vara tomt")
+    // }
+
+
+
+
+
+
+
+
+
+    // console.log("klickade på rutan", i)
+    // console.log(boardGame.value[i])
 
 }
 
-const ticTacToeStops = () => {
-    console.log("nu kan jag inte använda spelet mer!")
 
 
-}
+
+
+// const ticTacToeStops = (index: number) => {
+//     if (boardGame.value[index] != currentPlayer.role) {
+//         console.log("nu kan jag inte använda spelet mer!")
+
+//         //Stänga av klicket?? Hur??
+//     }
+
+
+// }
 
 const playAgain = () => {
 
@@ -105,8 +133,7 @@ const playAgain = () => {
         </div>
     </div>
     <button>Reset game</button>
-    <p v-if="winner === 'X'">winner is: {{ users[0].username }}🎉</p>
-    <p v-else> winner is: {{ users[1].username }} </p>
+    <p v-if="gameState === 'win'">winner is: {{ users[0].username || users[0].username }}🎉</p>
 </template>
 
 <style scoped>
