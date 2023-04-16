@@ -158,7 +158,7 @@ const playAgain = () => {
 }
 
 .square:hover {
-    background-color: #242424;
+    background-color: lightpink;
 }
 
 .btn-container {
@@ -175,14 +175,15 @@ const playAgain = () => {
 }
 
 .reset-btn:hover {
-
     background-color: white;
     border-color: white;
 }
 
 .winner-container {
-    height: 150px;
-    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .usernameWinnerO {
