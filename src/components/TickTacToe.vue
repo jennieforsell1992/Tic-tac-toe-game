@@ -117,10 +117,10 @@ const playAgain = () => {
         <button class="reset-btn" @click="playAgain">Reset game</button>
     </div>
     <div class="winner-container">
-        <p class="usernameWinnerO" v-if="gameState === 'win' && currentPlayer.role === 'X'">winner is: {{ users[1].username
+        <p class="usernameWinnerO" v-if="gameState === 'win' && currentPlayer.role === 'X'">WINNER IS: {{ users[1].username
         }}🎉
         </p>
-        <p class="usernameWinnerX" v-if="gameState === 'win' && currentPlayer.role === 'O'">winner is: {{ users[0].username
+        <p class="usernameWinnerX" v-if="gameState === 'win' && currentPlayer.role === 'O'">WINNER IS: {{ users[0].username
         }}🎉
         </p>
     </div>
