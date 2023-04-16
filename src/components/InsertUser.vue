@@ -22,14 +22,40 @@ const handleClick = () => {
 </script>
 
 <template>
-    <form :class="{ hidden: startPage }">
-        <input type="text" placeholder="Player one" v-model="userX.username">
-        <input type="text" placeholder="Player two" v-model="userO.username">
-        <button @click.prevent="handleClick">save</button>
+    <form class="form" :class="{ hidden: startPage }">
+        <label class="labelX">Player X</label>
+        <input class="playerX" type="text" placeholder="Name" v-model="userX.username">
+        <label class="labelO">Player O</label>
+        <input class="playerO" type="text" placeholder="Name" v-model="userO.username">
+        <button class="player-btn" @click.prevent="handleClick">save</button>
     </form>
 </template>
 
 <style scoped>
+.form {
+    margin: 50px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: pink;
+}
+
+.labelX {
+    font-size: 1.4rem;
+
+}
+
+.labelO {
+    font-size: 1.4rem;
+    margin-top: 10%;
+}
+
+.player-btn {
+    margin-top: 20%;
+}
+
+
+
 .hidden {
     display: none;
 }
