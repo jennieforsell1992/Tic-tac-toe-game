@@ -105,20 +105,36 @@ const playAgain = () => {
 </script>
 
 <template>
-    <p v-if="currentPlayer.role === 'X'"> Player {{ users[0].username }} 's turn:</p>
-    <p v-else> Player {{ users[1].username }} 's turn:</p>
+    <p class="usernameX" v-if="currentPlayer.role === 'X'"> Player {{ users[0].username }} 's turn:</p>
+    <p class="usernameO" v-else> Player {{ users[1].username }} 's turn:</p>
     <div div class=" square-container">
         <div class="square" v-for="(square, index) in boardGame" :key="boardKey" @click.once="() => { clickedBox(index) }">
             {{
                 boardGame[index] }}
         </div>
     </div>
-    <button @click="playAgain">Reset game</button>
-    <p v-if="gameState === 'win' && currentPlayer.role === 'X'">winner is: {{ users[1].username }}🎉</p>
-    <p v-if="gameState === 'win' && currentPlayer.role === 'O'">winner is: {{ users[0].username }}🎉</p>
+    <div class="btn-container">
+        <button class="reset-btn" @click="playAgain">Reset game</button>
+    </div>
+    <div class="winner-container">
+        <p class="usernameWinnerO" v-if="gameState === 'win' && currentPlayer.role === 'X'">winner is: {{ users[1].username
+        }}🎉
+        </p>
+        <p class="usernameWinnerX" v-if="gameState === 'win' && currentPlayer.role === 'O'">winner is: {{ users[0].username
+        }}🎉
+        </p>
+    </div>
 </template>
 
 <style scoped>
+.usernameX {
+    color: white;
+}
+
+.usernameO {
+    color: white;
+}
+
 .square-container {
 
     margin: 0 auto;
@@ -137,11 +153,45 @@ const playAgain = () => {
     align-items: center;
     font-size: 50px;
     cursor: pointer;
-    background-color: deeppink;
+    background-color: pink;
 
 }
 
 .square:hover {
     background-color: #242424;
+}
+
+.btn-container {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.reset-btn {
+    background-color: pink;
+
+}
+
+.reset-btn:hover {
+
+    background-color: white;
+    border-color: white;
+}
+
+.winner-container {
+    height: 150px;
+    width: 100vw;
+}
+
+.usernameWinnerO {
+    color: white;
+
+}
+
+.usernameWinnerX {
+
+    color: white;
 }
 </style>
