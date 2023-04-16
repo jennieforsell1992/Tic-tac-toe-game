@@ -38,6 +38,7 @@ const handleClick = () => {
     display: flex;
     flex-direction: column;
     background-color: pink;
+    border-radius: 5px;
 }
 
 .labelX {
@@ -50,9 +51,30 @@ const handleClick = () => {
     margin-top: 10%;
 }
 
+.playerX {
+    border-radius: 8px;
+    padding: 5px;
+
+}
+
+.playerO {
+    border-radius: 8px;
+    padding: 5px;
+}
+
 .player-btn {
     margin-top: 20%;
+    border-color: #242424;
+    background-color: white;
 }
+
+.player-btn:hover {
+
+    background-color: #ffb6c1;
+    border-color: white;
+}
+
+
 
 
 
