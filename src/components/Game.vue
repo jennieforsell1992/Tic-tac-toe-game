@@ -16,21 +16,6 @@ const addPlayerToGame = (userX: User, userO: User) => {
 
 
 
-// const ticTacToeBox = (i: number, boardGame: [{}]) => {
-
-    
-//     // if(user.value[i].role === "X"){
-
-//     // }
-//     // else(user.value[i].role === "O"){
-
-//     // }
-//     console.log("du klickade på en ruta", i)
-//     console.log(user.value[0])
-// }
-
-
-
 </script>
 
 <template>

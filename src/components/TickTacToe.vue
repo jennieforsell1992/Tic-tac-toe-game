@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { User } from "../models/User";
-import { computed } from "@vue/reactivity";
 
 
 interface ITicTacToeProps {
@@ -55,9 +54,7 @@ const winnerOfTicTacToe = () => {
     return null;
 }
 
-const winner = computed(() => winnerOfTicTacToe())
-const newWinner = winner.value;
-console.log(newWinner)
+
 
 
 
@@ -145,7 +142,7 @@ const playAgain = () => {
 }
 
 .square {
-    border: 1px solid white;
+    border: 1px solid #242424;
     min-width: 100px;
     min-height: 100px;
     display: flex;
